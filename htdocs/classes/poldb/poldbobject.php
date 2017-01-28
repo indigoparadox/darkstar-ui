@@ -4,51 +4,76 @@ namespace POLDB;
 
 abstract class POLDBObject {
 
-   public function fields() {
+   private $f3;
+
+   protected $params;
+   protected $fields = array();
+   
+   public function beforeroute( $f3 ) {
+      $this->f3 = $f3;
+      $this->params = $params;
+      $this->_setup_field_defs();
+      $this->f3->set( 'fields', $this->fields );
+   }
+
+   private function _setup_field_defs() {
       // Prepare the field definitions.
-      foreach( $this->field_defs as $field_key => $field_iter ) {
+      foreach( $this->fields as $field_key => $field_iter ) {
          // Fill in the name field if it's missing.
          if( !array_key_exists( 'name', $field_iter ) ) { 
-            $this->field_defs[$field_key]['name'] = $field_key;
+            $this->fields[$field_key]['name'] = $field_key;
          }
 
          if( !array_key_exists( 'display', $field_iter ) ) {
-            $this->field_defs[$field_key]['display'] = true;
+            $this->fields[$field_key]['display'] = true;
          }
 
          if( !array_key_exists( 'edit', $field_iter ) ) {
-            $this->field_defs[$field_key]['edit'] = true;
+            $this->fields[$field_key]['edit'] = true;
          }
       }
-
-      return $this->field_defs;
    }
 
-   public function populate( $f3, $db_name, $sort_key, $page=0 ) {
-      $row = new \DB\SQL\Mapper( $f3->get( 'dsdb' ), $db_name );
+   protected function _show( $params, $title ) {
+      $this->f3->set( 'title', $title );
+      echo( \Template::instance()->render( 'templates/data.html' ) );
+   }
+
+   protected abstract function get_mapper();
+
+   protected function get( $key ) {
+      return $this->f3->get( $key );
+   }
+
+   protected function get_param( $key ) {
+      return $this->get( 'PARAMS.'.$key );
+   }
+
+   protected function get_post( $key ) {
+      return $this->get( 'POST.'.$key );
+   }
+
+   protected function populate( $sort_key ) {
+      $row = $this->get_mapper();
       $row->load(
          array(),
          array(
             'order' => $sort_key,
-            'offset' => $page * $f3->get( 'db_page_size' ),
-            'limit' => $f3->get( 'db_page_size' ),
+            'offset' => $this->get_param( 'page' ) * $this->get( 'db_page_size' ),
+            'limit' => $this->get( 'db_page_size' ),
          )
       );
       $items_array = array();
       while( !$row->dry() ) {
          $item = array();
-         foreach( $this->fields() as $field_key => $field_iter ) {
+         foreach( $this->fields as $field_key => $field_iter ) {
             $item[$field_key] = $row->$field_key;
          }
          $items_array[] = $item;
          $row->next();
       }
 
-      $f3->set( 'rows', $items_array );
-      $f3->set( 'fields', $this->fields() );
-   }
-
-   public function show( $f3, $params ) {
+      $this->f3->set( 'rows', $items_array );
    }
 
 }

@@ -2,11 +2,9 @@
 
 namespace POLDB;
 
-define( 'NPC_TABLE', 'npc_list' );
-
 class NPC extends POLDBObject {
 
-   protected $field_defs = array(
+   protected $fields = array(
       'npcid' => array(
          'name' => 'NPC ID',
          'edit' => false,
@@ -25,33 +23,20 @@ class NPC extends POLDBObject {
       ),
    );
 
-   protected $db_table = 'npc_list';
-   protected $db_key = 'npcid';
+   protected function get_mapper() {
+      return new \DB\SQL\Mapper( $this->get( 'dsdb' ), 'npc_list' );
+   }
 
    public function show( $f3, $params ) {
-
-      $f3->set( 'title', 'NPCs' );
-
-      $this->populate(
-         $f3,
-         $this->db_table,
-         'npcid ASC',
-         $f3->get( 'PARAMS.page' )
-      );
-
-      echo( \Template::instance()->render( 'templates/data.html' ) );
+      $this->populate( 'npcid ASC' );
+      $this->_show( $params, 'NPCs' );
    }
 
    public function post( $f3, $params ) {
-   
-      $npc = new \DB\SQL\Mapper( $f3->get( 'dsdb' ), $this->db_table );
-      $npc->load( array( 'npcid = ?', $f3->get( 'POST.npcid' ) ) );
+      $npc = $this->get_mapper(); 
+      $npc->load( array( 'npcid = ?', $this->get_post( 'npcid' ) ) );
 
-      foreach( $this->fields() as $field_key => $field_iter ) {
-         if( $this->db_key == $field_iter ) {
-            continue;
-         }
-
+      foreach( $this->fields as $field_key => $field_iter ) {
          $npc->$field_key = $f3->get( 'POST.'.$field_key );
       }
 

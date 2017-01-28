@@ -4,7 +4,7 @@ namespace POLDB;
 
 class Auction extends POLDBObject {
 
-   protected $field_defs = array(
+   protected $fields = array(
       'id' => array(
          'name' => 'Auction ID',
       ),
@@ -37,20 +37,13 @@ class Auction extends POLDBObject {
       ),
    );
 
-   protected $db_table = 'auction_house';
+   protected function get_mapper() {
+      return new \DB\SQL\Mapper( $this->get( 'dsdb' ), 'auction_house' );
+   }
 
    public function show( $f3, $params ) {
-      $f3->set( 'title', 'Auction House' );
-
-      db_fields_load(
-         $f3,
-         $this->db_table,
-         $this->fields(),
-         'itemid ASC',
-         $f3->get( 'PARAMS.page' )
-      );
-
-      echo( \Template::instance()->render( 'templates/data.html' ) );
+      $this->populate( '' );
+      $this->_show( $params, 'Auctions' );
    }
 }
 
