@@ -26,15 +26,15 @@ class NPC extends POLDBObject {
    );
 
    protected $db_table = 'npc_list';
+   protected $db_key = 'npcid';
 
    public function show( $f3, $params ) {
 
       $f3->set( 'title', 'NPCs' );
 
-      db_fields_load(
+      $this->populate(
          $f3,
          $this->db_table,
-         $this->fields(),
          'npcid ASC',
          $f3->get( 'PARAMS.page' )
       );
@@ -47,10 +47,17 @@ class NPC extends POLDBObject {
       $npc = new \DB\SQL\Mapper( $f3->get( 'dsdb' ), $this->db_table );
       $npc->load( array( 'npcid = ?', $f3->get( 'POST.npcid' ) ) );
 
-      print_r( $this->fields() );
+      foreach( $this->fields() as $field_key => $field_iter ) {
+         if( $this->db_key == $field_iter ) {
+            continue;
+         }
 
-      die();
+         $npc->$field_key = $f3->get( 'POST.'.$field_key );
+      }
 
+      $npc->save();
+
+      $f3->reroute( '/npc/@page' );
    }
 }
 
