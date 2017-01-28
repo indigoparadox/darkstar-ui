@@ -13,6 +13,7 @@ class NPC {
          array(
             'npcid' => array(
                'name' => 'NPC ID',
+               'edit' => false,
             ),
             'name' => array(
                'name' => 'NPC Name',

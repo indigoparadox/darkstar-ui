@@ -6,7 +6,6 @@ class Auction {
    public static function show( $f3, $params ) {
       $f3->set( 'title', 'Auction House' );
 
-   /*
       db_fields_load(
          $f3,
          'auction_house',
@@ -15,22 +14,36 @@ class Auction {
                'name' => 'Auction ID',
             ),
             'itemid' => array(
-               'Item ID',
-            'stack' => 'Stack Size',
-            'seller' => 'Seller',
-            'seller_name' => 'Seller Name',
+               'name' => 'Item ID',
+            ),
+            'stack' => array(
+               'name' => 'Stack Size',
+            ),
+            'seller' => array(
+               'name' => 'Seller',
+            ),
+            'seller_name' => array(
+               'name' => 'Seller Name',
+            ),
             'date' => array(
                'name' => 'Date',
             ),
-            'price' =>,
-            'buyer_name',
-            'sale',
-            'sell_date',
+            'price' => array(
+               'name' => 'Price',
+            ),
+            'buyer_name' => array(
+               'name' => 'Buyer Name',
+            ),
+            'sale' => array(
+               'name' => 'Sale',
+            ),
+            'sell_date' => array(
+               'name' => 'Sell Date'
+            ),
          ),
          'itemid ASC',
          $f3->get( 'PARAMS.page' )
       );
-   */
 
       echo( \Template::instance()->render( 'templates/data.html' ) );
    }

@@ -2,10 +2,30 @@
 body {
    background: black;
    color: white;
+   font-family: sans-serif;
+}
+
+#menu {
+   display: table;
+   margin: 10px auto;
+}
+
+#menu ul {
+   display: table;
+   margin: 0 auto;
+   list-style-type: none;
+}
+
+#menu li {
+   display: inline-block;
 }
 
 table {
    margin: 0 auto;
+}
+
+th {
+   text-align: left;
 }
 
 #nav {
@@ -16,5 +36,9 @@ table {
 
 #nav_next {
    float: right;
+}
+
+label {
+   font-weight: bold;
 }
 

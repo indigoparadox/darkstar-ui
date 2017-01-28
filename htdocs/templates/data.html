@@ -1,22 +1,71 @@
 <include href="templates/header.html" />
 
 <table>
+
+<!-- Table Headers -->
 <thead>
 <tr>
 <repeat group="{{ @fields }}" value="{{ @field }}">
-<td>{{ @field }}</td>
+<check if="{{ @field['display'] }}">
+<th>{{ @field['name'] }}</th>
+</check>
 </repeat>
 </tr>
 </thead>
-
 <tbody>
-<repeat group="{{ @items }}" value="{{ @item }}">
+
+<!-- Rows -->
+<repeat group="{{ @rows }}" value="{{ @row }}">
+<tr><form>
+ <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
+ <check if="{{ @field['display'] }}">
+ <td>
+  <check if="{{ @field['edit'] }}">
+  <true>
+  <input name="{{ @field_key }}" value="{{ @row[@field_key] }}" />
+  </true>
+  <false>
+  {{ @row[@field_key] }}
+  </false>
+  </check>
+ </td>
+ </check>
+ </repeat>
+
+ <td>
+  <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
+  <check if="{{ @field['display'] && @field['edit'] }}">
+  <false>
+  <input type="hidden" name="{{ @field_key }}" value="{{ @row[@field_key] }}" />
+  </false>
+  </check>
+  </repeat>
+  <input type="submit" value="Submit" />
+ </td>
+</form></tr>
+</repeat>
+
+<!-- Input Form -->
 <tr>
-<repeat group="{{ @item }}" value="{{ @field }}">
-<td>{{ @field }}</td>
+<form>
+<repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
+<check if="{{ @field['display'] }}">
+<td>
+<check if="{{ @field['edit'] }}">
+<true>
+<!-- <label for="{{ @field_key }}">{{ @field['name'] }}</label> -->
+<input name="{{ @field_key }}" />
+</true>
+<false>
+<input name="{{ @field_key }}" type="hidden" />
+</false>
+</check>
+</td>
+</check>
 </repeat>
+</form>
 </tr>
-</repeat>
+
 </tbody>
 </table>
 

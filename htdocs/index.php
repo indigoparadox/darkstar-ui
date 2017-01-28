@@ -45,19 +45,31 @@ function db_fields_load( $f3, $db_name, $fields, $sort_key, $page=0, $hidden=fal
    while( !$row->dry() ) {
       $item = array();
       foreach( $fields as $field_key => $field_iter ) {
-         if(
-            !array_key_exists( 'display', $field_iter ) ||
-            $field_iter['display'] ||
-            $hidden
-         ) {
-            $item[$field_key] = $row->$field_key;
-         }
+         $item[$field_key] = $row->$field_key;
       }
       $items_array[] = $item;
       $row->next();
    }
-   $f3->set( 'items', $items_array );
-   $f3->set( 'fields', db_fields_names( $fields, $hidden ) );
+
+
+   // Prepare the field definitions.
+   foreach( $fields as $field_key => $field_iter ) {
+      // Fill in the name field if it's missing.
+      if( !array_key_exists( 'name', $field_iter ) ) { 
+         $fields[$field_key]['name'] = $field_key;
+      }
+
+      if( !array_key_exists( 'display', $field_iter ) ) {
+         $fields[$field_key]['display'] = true;
+      }
+
+      if( !array_key_exists( 'edit', $field_iter ) ) {
+         $fields[$field_key]['edit'] = true;
+      }
+   }
+
+   $f3->set( 'rows', $items_array );
+   $f3->set( 'fields', $fields );
 }
 
 $f3->route( 'GET /', function( $f3, $params ) {
