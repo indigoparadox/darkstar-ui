@@ -1,0 +1,20 @@
+
+body {
+   background: black;
+   color: white;
+}
+
+table {
+   margin: 0 auto;
+}
+
+#nav {
+   display: table;
+   margin: 0 auto;
+   width: 50%;
+}
+
+#nav_next {
+   float: right;
+}
+

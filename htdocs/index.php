@@ -65,7 +65,6 @@ $f3->route( 'GET /', function( $f3, $params ) {
 } );
 
 $f3->route( 'GET /auction_house/@page', 'POLDB\Auction::show' );
-
 $f3->route( 'GET /npc/@page', 'POLDB\NPC::show' );
 
 $f3->run();

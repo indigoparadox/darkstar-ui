@@ -20,4 +20,11 @@
 </tbody>
 </table>
 
+<div id="nav">
+<check if="{{ 0<@PARAMS.page }}">
+<a id="nav_prev" href="{{ @PARAMS.page-1 }}">Previous</a>
+</check>
+<a id="nav_next" href="{{ @PARAMS.page+1 }}">Next</a>
+</div>
+
 <include href="templates/footer.html" />
