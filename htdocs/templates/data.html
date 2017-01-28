@@ -16,7 +16,7 @@
 
 <!-- Rows -->
 <repeat group="{{ @rows }}" value="{{ @row }}">
-<tr><form>
+<tr><form method="post">
  <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
  <check if="{{ @field['display'] }}">
  <td>
@@ -47,7 +47,7 @@
 
 <!-- Input Form -->
 <tr>
-<form>
+<form method="post">
 <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
 <check if="{{ @field['display'] }}">
 <td>
