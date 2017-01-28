@@ -13,6 +13,8 @@ $f3->set(
    )
 );
 
+$f3->set( 'AUTOLOAD', 'classes/' );
+
 function db_fields_names( $fields, $hidden=false ) {
    foreach( $fields as $field_key => $field_iter ) {
       if( 
@@ -62,70 +64,9 @@ $f3->route( 'GET /', function( $f3, $params ) {
    
 } );
 
-$f3->route( 'GET /auction_house/@page', function( $f3, $params ) {
+$f3->route( 'GET /auction_house/@page', 'POLDB\Auction::show' );
 
-   $f3->set( 'title', 'Auction House' );
-
-/*
-   db_fields_load(
-      $f3,
-      'auction_house',
-      array(
-         'id' => array(
-            'name' => 'Auction ID',
-         ),
-         'itemid' => array(
-            'Item ID',
-         'stack' => 'Stack Size',
-         'seller' => 'Seller',
-         'seller_name' => 'Seller Name',
-         'date' => array(
-            'name' => 'Date',
-         ),
-         'price' =>,
-         'buyer_name',
-         'sale',
-         'sell_date',
-      ),
-      'itemid ASC',
-      $f3->get( 'PARAMS.page' )
-   );
-*/
-
-   echo( \Template::instance()->render( 'templates/data.html' ) );
-
-} );
-
-$f3->route( 'GET /npc/@page', function( $f3, $params ) {
-
-   $f3->set( 'title', 'NPCs' );
-
-   db_fields_load(
-      $f3,
-      'npc_list',
-      array(
-         'npcid' => array(
-            'name' => 'NPC ID',
-         ),
-         'name' => array(
-            'name' => 'NPC Name',
-         ),
-         'polutils_name' => array(
-            'display' => false,
-         ),
-         'pos_rot' => array(
-            'name' => 'Rotation',
-         ),
-         'pos_x' => array(
-            'name' => 'Position X',
-         ),
-      ),
-      'npcid ASC',
-      $f3->get( 'PARAMS.page' )
-   );
-
-   echo( \Template::instance()->render( 'templates/data.html' ) );
-} );
+$f3->route( 'GET /npc/@page', 'POLDB\NPC::show' );
 
 $f3->run();
 
