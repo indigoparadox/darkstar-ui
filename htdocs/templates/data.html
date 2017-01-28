@@ -1,0 +1,23 @@
+<include href="templates/header.html" />
+
+<table>
+<thead>
+<tr>
+<repeat group="{{ @fields }}" value="{{ @field }}">
+<td>{{ @field }}</td>
+</repeat>
+</tr>
+</thead>
+
+<tbody>
+<repeat group="{{ @items }}" value="{{ @item }}">
+<tr>
+<repeat group="{{ @item }}" value="{{ @field }}">
+<td>{{ @field }}</td>
+</repeat>
+</tr>
+</repeat>
+</tbody>
+</table>
+
+<include href="templates/footer.html" />
