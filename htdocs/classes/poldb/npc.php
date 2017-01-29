@@ -8,6 +8,7 @@ class NPC extends POLDBObject {
       'npcid' => array(
          'name' => 'NPC ID',
          'edit' => false,
+         'size' => 10,
       ),
       'name' => array(
          'name' => 'NPC Name',
@@ -17,9 +18,54 @@ class NPC extends POLDBObject {
       ),
       'pos_rot' => array(
          'name' => 'Rotation',
+         'size' => 7,
       ),
       'pos_x' => array(
          'name' => 'Position X',
+         'size' => 7,
+      ),
+      'pos_y' => array(
+         'size' => 7,
+      ),
+      'pos_z' => array(
+         'size' => 7,
+      ),
+      'flag' => array(
+         'size' => 5,
+      ),
+      'speed' => array(
+         'size' => 3,
+      ),
+      'speedsub' => array(
+         'size' => 3,
+      ),
+      'animation' => array(
+         'size' => 3,
+      ),
+      'animationsub' => array(
+         'size' => 3,
+      ),
+      'namevis' => array(
+         'size' => 3,
+      ),
+      'status' => array(
+         'size' => 3,
+      ),
+      'flags' => array(
+         'size' => 7,
+      ),
+      //'look' => array(
+      //),
+      'name_prefix' => array(
+         'size' => 3,
+      ),
+      'required_expansion' => array(
+         'size' => 3,
+         'type' => 'select',
+         'options' => array(
+            'COP',
+            'SOA',
+         ),
       ),
    );
 
