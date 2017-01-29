@@ -31,14 +31,7 @@
  <td class="hidden">
  </false>
  </check>
-  <check if="{{ @field['edit'] }}">
-  <true>
-  <input name="{{ @field_key }}" value="{{ @row[@field_key] }}" size="{{ @field['size'] }}" />
-  </true>
-  <false>
-  {{ @row[@field_key] }}
-  </false>
-  </check>
+  <field key="{{ @field_key }}" row="{{ @row }}" />
  </td>
  </repeat>
 
@@ -50,8 +43,9 @@
   </false>
   </check>
   </repeat>
-  <input type="submit" value="Submit" />
+  <input type="submit" name="action" value="Submit" />
  </td>
+ <td><input type="submit" name="action" value="Delete" /></td>
 </form></tr>
 </repeat>
 
@@ -67,9 +61,10 @@
  </false>
  </check>
   <!-- <label for="{{ @field_key }}">{{ @field['name'] }}</label> -->
-  <input name="{{ @field_key }}" size="{{ @field['size'] }}" />
+  <field key="{{ @field_key }}" />
  </td>
  </repeat>
+ <td><input type="submit" value="Submit" /></td>
 </form></tr>
 
 </tbody>
