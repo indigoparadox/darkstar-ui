@@ -23,6 +23,15 @@ class TemplarField extends \Prefab {
 
       switch( $field_def['type'] ) {
          case 'select':
+
+            if(
+               $row[$key] &&
+               !array_key_exists( $row[$key], $field_def['options'] )
+            ) {
+               // We can't fit this in the existing options.
+               break;
+            }
+
             $options = '';
             foreach( $field_def['options'] as $opt_key => $opt_iter ) {
                // Mark option as checked if it matches current value.
@@ -35,17 +44,17 @@ class TemplarField extends \Prefab {
                $options .= ' value="'.$opt_key.'">'.$opt_iter.'</option>';
             }
             return '<select name="'.$key.'">'.$options.'</select>';
-
-         case 'text':
-            if( $row ) {
-               $value = 'value="'.$row[$key].'" ';
-            } else {
-               $value = '';
-            }
-            $input = '<input type="text" name="'.$key.'" '.$value.'size="'.
-               $field_def['size'].'" />';
-            return $input;
       }
+
+      // Implicitly default to text.
+      if( $row ) {
+         $value = 'value="'.$row[$key].'" ';
+      } else {
+         $value = '';
+      }
+      $input = '<input type="text" name="'.$key.'" '.$value.'size="'.
+         $field_def['size'].'" />';
+      return $input;
    }
 
 }
