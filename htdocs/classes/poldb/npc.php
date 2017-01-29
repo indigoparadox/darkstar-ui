@@ -75,8 +75,8 @@ class NPC extends POLDBObject {
          'size' => 3,
          'type' => 'select',
          'options' => array(
-            'COP',
-            'SOA',
+            'COP' => 'COP',
+            'SOA' => 'SOA',
          ),
       ),
    );
