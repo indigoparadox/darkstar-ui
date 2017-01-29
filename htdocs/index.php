@@ -23,6 +23,10 @@ $f3->route( 'GET /auction/@page', 'POLDB\Auction->show' );
 $f3->route( 'POST /auction/@page', 'POLDB\Auction->post' );
 $f3->route( 'GET /npc/@page', 'POLDB\NPC->show' );
 $f3->route( 'POST /npc/@page', 'POLDB\NPC->post' );
+$f3->route( 'GET /server/@page', 'POLDB\Server->show' );
+$f3->route( 'POST /server/@page', 'POLDB\Server->post' );
+$f3->route( 'GET /ebase/@page', 'POLDB\EBase->show' );
+$f3->route( 'POST /ebase/@page', 'POLDB\EBase->post' );
 
 $f3->run();
 
