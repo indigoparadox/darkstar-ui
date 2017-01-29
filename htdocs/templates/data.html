@@ -7,7 +7,12 @@
 <tr>
 <repeat group="{{ @fields }}" value="{{ @field }}">
 <check if="{{ @field['display'] }}">
+<true>
 <th>{{ @field['name'] }}</th>
+</true>
+<false>
+<th class="hidden">{{ @field['name'] }}</th>
+</false>
 </check>
 </repeat>
 </tr>
@@ -19,22 +24,27 @@
 <tr><form method="post">
  <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
  <check if="{{ @field['display'] }}">
+ <true>
  <td>
+ </true>
+ <false>
+ <td class="hidden">
+ </false>
+ </check>
   <check if="{{ @field['edit'] }}">
   <true>
-  <input name="{{ @field_key }}" value="{{ @row[@field_key] }}" />
+  <input name="{{ @field_key }}" value="{{ @row[@field_key] }}" size="{{ @field['size'] }}" />
   </true>
   <false>
   {{ @row[@field_key] }}
   </false>
   </check>
  </td>
- </check>
  </repeat>
 
  <td>
   <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
-  <check if="{{ @field['display'] && @field['edit'] }}">
+  <check if="{{ @field['edit'] }}">
   <false>
   <input type="hidden" name="{{ @field_key }}" value="{{ @row[@field_key] }}" />
   </false>
@@ -46,25 +56,21 @@
 </repeat>
 
 <!-- Input Form -->
-<tr>
-<form method="post">
-<repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
-<check if="{{ @field['display'] }}">
-<td>
-<check if="{{ @field['edit'] }}">
-<true>
-<!-- <label for="{{ @field_key }}">{{ @field['name'] }}</label> -->
-<input name="{{ @field_key }}" />
-</true>
-<false>
-<input name="{{ @field_key }}" type="hidden" />
-</false>
-</check>
-</td>
-</check>
-</repeat>
-</form>
-</tr>
+<tr><form method="post">
+ <repeat group="{{ @fields }}" key="{{ @field_key }}" value="{{ @field }}">
+ <check if="{{ @field['display'] }}">
+ <true>
+ <td>
+ </true>
+ <false>
+ <td class="hidden">
+ </false>
+ </check>
+  <!-- <label for="{{ @field_key }}">{{ @field['name'] }}</label> -->
+  <input name="{{ @field_key }}" size="{{ @field['size'] }}" />
+ </td>
+ </repeat>
+</form></tr>
 
 </tbody>
 </table>
