@@ -43,6 +43,30 @@ abstract class POLDBObject {
       echo( $templar->render( 'templates/data.html' ) );
    }
 
+   public function post( $f3, $params ) {
+      $row = $this->get_mapper(); 
+      $row->load( array(
+         '? = ?',
+         $this->get_db_key(),
+         $this->get_post( $this->get_db_key() )
+      ) );
+
+      if( 'Submit' == $f3->get( 'POST.action' ) ) {
+         foreach( $this->fields as $field_key => $field_iter ) {
+            $row->$field_key = $f3->get( 'POST.'.$field_key );
+         }
+
+         $row->save();
+      } elseif( 'Delete' == $f3->get( 'POST.action' ) ) {
+         $row->erase();
+      }
+
+      $this->reroute( $f3 );
+   }
+
+   protected abstract function reroute( $f3 );
+
+   protected abstract function get_db_key();
    protected abstract function get_mapper();
 
    protected function get( $key ) {
