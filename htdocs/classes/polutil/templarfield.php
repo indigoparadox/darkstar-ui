@@ -26,13 +26,13 @@ class TemplarField extends \Prefab {
             $options = '';
             foreach( $field_def['options'] as $opt_key => $opt_iter ) {
                // Mark option as checked if it matches current value.
-               if( $row && $opt_iter == $row[$key] ) {
-                  $options .= '<option selected="selected">';
+               if( $row && $opt_key == $row[$key] ) {
+                  $options .= '<option selected="selected"';
                } else {
-                  $options .= '<option>';
+                  $options .= '<option';
                }
                
-               $options .= $opt_iter.'</option>';
+               $options .= ' value="'.$opt_key.'">'.$opt_iter.'</option>';
             }
             return '<select name="'.$key.'">'.$options.'</select>';
 
