@@ -46,10 +46,20 @@ abstract class POLDBObject {
    public function post( $f3, $params ) {
       $row = $this->get_mapper(); 
       $row->load( array(
-         '? = ?',
-         $this->get_db_key(),
+         // Can we not use params as the field name?
+         $this->get_db_key().' = ?',
          $this->get_post( $this->get_db_key() )
       ) );
+
+/*
+      echo( '<pre>' );
+      var_dump( $this->get_db_key() );
+      var_dump( $row->name );
+      var_dump( $row->value );
+      var_dump( $this->get( 'POST.action' ) );
+      echo( '</pre>' );
+      die();
+*/
 
       if( 'Submit' == $f3->get( 'POST.action' ) ) {
          foreach( $this->fields as $field_key => $field_iter ) {
