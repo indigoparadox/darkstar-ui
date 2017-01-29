@@ -27,6 +27,8 @@ $f3->route( 'GET /server/@page', 'POLDB\Server->show' );
 $f3->route( 'POST /server/@page', 'POLDB\Server->post' );
 $f3->route( 'GET /ebase/@page', 'POLDB\EBase->show' );
 $f3->route( 'POST /ebase/@page', 'POLDB\EBase->post' );
+$f3->route( 'GET /mobspawns/@page', 'POLDB\MobSpawns->show' );
+$f3->route( 'POST /mobspawns/@page', 'POLDB\MobSpawns->post' );
 
 $f3->run();
 
